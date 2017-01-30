@@ -2,6 +2,8 @@ package hblj.blueweather.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,6 +11,7 @@ import org.json.JSONObject;
 import hblj.blueweather.db.City;
 import hblj.blueweather.db.County;
 import hblj.blueweather.db.Province;
+import hblj.blueweather.gson.Weather;
 
 /**
  * Created by shijin on 2017/1/28.
@@ -104,5 +107,13 @@ public class Utility {
         }
 
         return true;
+    }
+
+    /**
+     * 从服务器解析返回 天气信息
+     */
+    public static Weather getWeatherInfo(String response){
+        Weather weather = new Gson().fromJson(response,Weather.class);
+        return weather;
     }
 }

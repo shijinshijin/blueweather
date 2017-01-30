@@ -6,12 +6,18 @@
     android:layout_height="match_parent"
     tools:context="hblj.blueweather.MainActivity">
 
-    <fragment
-        android:id="@+id/choose_area_fragment"
+    <FrameLayout
+        android:id="@+id/main_framelayput"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="hblj.blueweather.ChooseAreaFragment">
+        android:layout_height="match_parent">
+        <fragment
+            android:id="@+id/choose_area_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="hblj.blueweather.ChooseAreaFragment">
 
-    </fragment>
+        </fragment>
+
+    </FrameLayout>
 
 </RelativeLayout>

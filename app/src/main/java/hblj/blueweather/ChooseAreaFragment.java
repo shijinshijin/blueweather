@@ -1,6 +1,9 @@
 package hblj.blueweather;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -67,7 +70,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private City selectCity;
 
-
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -76,6 +79,8 @@ public class ChooseAreaFragment extends Fragment {
         title_text = (TextView) view.findViewById(R.id.title_text);
         list_view = (ListView) view.findViewById(R.id.list_view);
         back_button = (Button) view.findViewById(R.id.back_button);
+
+        sharedPreferences = getActivity().getSharedPreferences("weather_info", Context.MODE_PRIVATE);
         return view;
     }
 
@@ -99,6 +104,29 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 }else if(currentLevel == LEVEL_COUNTY){
                     //当前页面在选择乡镇
+                    //将当前选择的城市写入sharedpreference 避免重复进入
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    String cityid = countyList.get(position).getWeatherId();
+                    editor.putString("cityid",cityid);
+                    editor.commit();
+
+                    if(getActivity() instanceof MainActivity){
+
+                        Intent intent = new Intent(getActivity(),WeatherActivity.class);
+                        intent.putExtra("cityid",cityid);
+                        startActivity(intent);
+                        getActivity().finish();
+
+                    }else if(getActivity() instanceof WeatherActivity){
+
+                        WeatherActivity weatherActivity = (WeatherActivity) getActivity();
+                        weatherActivity.drawerlayout.closeDrawers();
+                        weatherActivity.swipe_refresh.setRefreshing(true);
+                        String url = "http://guolin.tech/api/weather?cityid="+cityid+"&key=066cab6185734a03acd518652b46c773";
+                        weatherActivity.initWeather(url);
+
+                    }
+
 
                 }
             }
