@@ -38,3 +38,9 @@ captures/
 
 # Keystore files
 *.jks
+
+grade.properties
+.idea/libraries/
+.idea/vcs.xml
+app/src/main/java/hblj/blueweather/service/
+app/src/main/res/drawable/
