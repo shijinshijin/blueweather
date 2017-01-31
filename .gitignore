@@ -39,7 +39,7 @@ captures/
 # Keystore files
 *.jks
 
-grade.properties
+gradle.properties
 .idea/libraries/
 .idea/vcs.xml
 app/src/main/java/hblj/blueweather/service/
